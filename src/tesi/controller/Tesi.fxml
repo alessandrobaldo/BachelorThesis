@@ -18,22 +18,17 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.TesiController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.TesiController">
    <center>
       <AnchorPane style="-fx-background-color: cadetblue;" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutY="-1.0" style="-fx-background-color: lightgrey;">
+            <VBox fx:id="pannello" layoutY="25.0" prefHeight="757.0" prefWidth="170.0" style="-fx-background-color: lightgrey;" visible="false">
                <children>
-                  <ImageView fx:id="hamburgerMenu" fitHeight="31.0" fitWidth="36.0" onMouseClicked="#showPannello" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../img/HamburgerMenu.png" />
-                     </image>
-                  </ImageView>
-                  <VBox prefHeight="707.0" style="-fx-background-color: peachpuff;">
+                  <VBox prefHeight="754.0" prefWidth="170.0" style="-fx-background-color: peachpuff;">
                      <children>
                         <Label text="Scegli Auto">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                            </VBox.margin>
                         </Label>
                         <CheckBox fx:id="checkCompro" mnemonicParsing="false" text="Compro">
@@ -81,7 +76,7 @@
                               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Slider fx:id="sliderPrezzo" blockIncrement="1000.0" max="215000.0" showTickLabels="true">
+                        <Slider fx:id="sliderPrezzo" blockIncrement="1000.0" majorTickUnit="500.0" max="215000.0" showTickLabels="true">
                            <VBox.margin>
                               <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
                            </VBox.margin>
@@ -189,7 +184,7 @@
                   <Font size="7.0" />
                </font>
             </Label>
-            <WebView fx:id="webView" layoutX="439.0" layoutY="218.0" prefHeight="554.0" prefWidth="278.0" />
+            <WebView fx:id="webView" layoutX="439.0" layoutY="218.0" prefHeight="554.0" prefWidth="272.0" />
             <TextArea fx:id="txtResult" layoutX="179.0" layoutY="372.0" prefHeight="400.0" prefWidth="254.0">
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -197,7 +192,12 @@
             <Button fx:id="btnCalcolaPercorso" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcolo del Percorso" />
             <TextField fx:id="txtCittaPartenza" layoutX="229.0" layoutY="60.0" promptText="Inserisci una città..." />
             <TextField fx:id="txtCittaArrivo" layoutX="229.0" layoutY="152.0" promptText="Inserisci una città..." />
+            <ImageView fx:id="hamburgerMenu" fitHeight="31.0" fitWidth="36.0" onMouseClicked="#showPannello" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/HamburgerMenu.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>
-</fx:root>
+</BorderPane>

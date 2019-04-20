@@ -14,6 +14,7 @@ public class Main extends Application {
 		try {
 			System.out.println(getClass().getResource("Tesi.fxml"));
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Tesi.fxml"));
+			//loader.setRoot(getClass().getResource("/Users/alebaldus/Desktop/Politecnico/Tecniche%20di%20Programmazione/Eclipse/Tesi/bin/tesi/controller/Tesi.fxml"));
 			BorderPane root = (BorderPane) loader.load();
 			
 			Scene scene=new Scene(root);

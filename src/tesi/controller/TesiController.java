@@ -13,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import tesi.model.TesiModel;
 
@@ -24,9 +25,9 @@ public class TesiController {
 
     @FXML
     private URL location;
-
+    
     @FXML
-    private ImageView hamburgerMenu;
+    private VBox pannello;
 
     @FXML
     private CheckBox checkCompro;
@@ -110,6 +111,9 @@ public class TesiController {
     private TextField txtCittaArrivo;
 
     @FXML
+    private ImageView hamburgerMenu;
+
+    @FXML
     void doCalcolaPercorso(ActionEvent event) {
 
     }
@@ -126,12 +130,19 @@ public class TesiController {
 
     @FXML
     void showPannello(MouseEvent event) {
+    	if(this.pannello.isVisible()) {
+    		this.pannello.setVisible(false);
+    		return;}
+    	else {
+    		this.pannello.setVisible(true);
+    		return;
+    	}
 
     }
 
     @FXML
     void initialize() {
-        assert hamburgerMenu != null : "fx:id=\"hamburgerMenu\" was not injected: check your FXML file 'Tesi.fxml'.";
+    	assert pannello != null : "fx:id=\"pannello\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert checkCompro != null : "fx:id=\"checkCompro\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert checkNoleggio != null : "fx:id=\"checkNoleggio\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert tendinaMarca != null : "fx:id=\"tendinaMarca\" was not injected: check your FXML file 'Tesi.fxml'.";
@@ -159,11 +170,11 @@ public class TesiController {
         assert btnCalcolaPercorso != null : "fx:id=\"btnCalcolaPercorso\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert txtCittaPartenza != null : "fx:id=\"txtCittaPartenza\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert txtCittaArrivo != null : "fx:id=\"txtCittaArrivo\" was not injected: check your FXML file 'Tesi.fxml'.";
+        assert hamburgerMenu != null : "fx:id=\"hamburgerMenu\" was not injected: check your FXML file 'Tesi.fxml'.";
 
     }
 
 	public void setModel(TesiModel model) {
-		// TODO Auto-generated method stub
-		this.model=model;
+		this.model = model;
 	}
 }
