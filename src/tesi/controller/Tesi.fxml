@@ -6,198 +6,238 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.TesiController">
+<BorderPane prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.TesiController">
    <center>
-      <AnchorPane style="-fx-background-color: cadetblue;" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="pannello" layoutY="25.0" prefHeight="757.0" prefWidth="170.0" style="-fx-background-color: lightgrey;" visible="false">
+      <ScrollPane BorderPane.alignment="CENTER">
+         <content>
+            <AnchorPane prefWidth="1000.0" style="-fx-background-color: rgb(0,128,179);">
                <children>
-                  <VBox prefHeight="754.0" prefWidth="170.0" style="-fx-background-color: peachpuff;">
+                  <VBox fx:id="boxLogo" layoutY="43.0">
                      <children>
-                        <Label text="Scegli Auto">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <CheckBox fx:id="checkCompro" mnemonicParsing="false" text="Compro">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkNoleggio" mnemonicParsing="false" text="Noleggio">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <Label text="Marca">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ChoiceBox fx:id="tendinaMarca" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <Label text="Modello">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ChoiceBox fx:id="tendinaModello" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <Label text="Segmento">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ChoiceBox fx:id="tendinaSegmento" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <Label text="Fascia di Prezzo">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Slider fx:id="sliderPrezzo" blockIncrement="1000.0" majorTickUnit="500.0" max="215000.0" showTickLabels="true">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
-                           </VBox.margin>
-                        </Slider>
-                        <Label text="Prezzo Noleggio (£)">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Slider fx:id="sliderNoleggio" blockIncrement="25.0" max="2400.0" showTickLabels="true">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
-                           </VBox.margin>
-                        </Slider>
-                        <Label text="Autonomia">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Slider fx:id="sliderAutonomia" max="970.0" showTickLabels="true">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
-                           </VBox.margin>
-                        </Slider>
-                        <Label text="Prestazioni 0-100">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Slider fx:id="sliderPrestazioni" blockIncrement="1.0" max="23.0" showTickLabels="true">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
-                           </VBox.margin>
-                        </Slider>
-                        <Label text="Velocità Max">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Slider fx:id="sliderVelocita" max="410.0" min="120.0" showTickLabels="true">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
-                           </VBox.margin>
-                        </Slider>
-                        <Label text="Numero Posti">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ChoiceBox fx:id="tendinaNumPosti" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <CheckBox fx:id="checkTrazione" mnemonicParsing="false" text="Trazione Integrale">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <CheckBox fx:id="checkRicarica" mnemonicParsing="false" text="Ricarica Rapida">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </CheckBox>
+                        <VBox fx:id="pannello" layoutY="43.0" style="-fx-background-color: peachpuff;" visible="false">
+                           <children>
+                              <CheckBox fx:id="checkCompro" mnemonicParsing="false" onAction="#doCompro" text="Compro">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="checkNoleggio" mnemonicParsing="false" onAction="#doNoleggio" text="Noleggio">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <Label text="Marca">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="tendinaMarca" onMouseExited="#checkSelectedMarca" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </ChoiceBox>
+                              <Label text="Modello">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="tendinaModello" onMouseExited="#checkSelectedModello" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </ChoiceBox>
+                              <Label text="Segmento">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="tendinaSegmento" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </ChoiceBox>
+                              <Label text="Fascia di Prezzo">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="sliderPrezzo" blockIncrement="1000.0" majorTickUnit="500.0" max="215000.0" showTickLabels="true">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
+                                 </VBox.margin>
+                              </Slider>
+                              <Label text="Prezzo Noleggio (£)">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="sliderNoleggio" blockIncrement="25.0" max="2400.0" showTickLabels="true">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
+                                 </VBox.margin>
+                              </Slider>
+                              <Label text="Autonomia">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="sliderAutonomia" max="970.0" showTickLabels="true">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
+                                 </VBox.margin>
+                              </Slider>
+                              <Label text="Prestazioni 0-100">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="sliderPrestazioni" blockIncrement="1.0" max="23.0" showTickLabels="true">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
+                                 </VBox.margin>
+                              </Slider>
+                              <Label text="Velocità Max">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Slider fx:id="sliderVelocita" max="410.0" min="120.0" showTickLabels="true">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
+                                 </VBox.margin>
+                              </Slider>
+                              <Label text="Numero Posti">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="tendinaNumPosti" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </ChoiceBox>
+                              <CheckBox fx:id="checkTrazione" mnemonicParsing="false" text="Trazione Integrale">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="checkRicarica" mnemonicParsing="false" text="Ricarica Rapida">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <HBox prefHeight="13.0" prefWidth="170.0">
+                                 <children>
+                                    <Button fx:id="btnResetAuto" mnemonicParsing="false" onAction="#doResetAuto" text="Reset">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="btnRisultatiAuto" mnemonicParsing="false" onAction="#doTrovaRisultati" text="Risultati">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Scegli un punto di partenza, selezionando la città in cui ti trovi" wrappingWidth="275.8828125">
+                     <font>
+                        <Font name="System Font" size="13.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="176.0" layoutY="63.0" text="Città:" textFill="WHITE" />
+                  <Label layoutX="418.0" layoutY="63.0" text="Lat." textFill="WHITE" />
+                  <TextField fx:id="txtLatPartenza" disable="true" layoutX="452.0" layoutY="58.0" prefHeight="27.0" prefWidth="59.0" />
+                  <Label layoutX="532.0" layoutY="63.0" text="Long." textFill="WHITE" />
+                  <TextField fx:id="txtLongPartenza" disable="true" layoutX="576.0" layoutY="58.0" prefHeight="27.0" prefWidth="59.0" />
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Scegli un punto di arrivo, selezionando la città di destinazione" wrappingWidth="289.14794921875" />
+                  <Label layoutX="176.0" layoutY="157.0" text="Città:" textFill="WHITE" />
+                  <Label layoutX="418.0" layoutY="157.0" text="Lat." textFill="WHITE" />
+                  <TextField fx:id="txtLatArrivo" disable="true" layoutX="452.0" layoutY="152.0" prefHeight="27.0" prefWidth="59.0" />
+                  <TextField fx:id="txtLongArrivo" disable="true" layoutX="576.0" layoutY="152.0" prefHeight="27.0" prefWidth="59.0" />
+                  <Label layoutX="533.0" layoutY="157.0" text="Long." textFill="WHITE" />
+                  <Button fx:id="btnResetPartenza" layoutX="658.0" layoutY="58.0" mnemonicParsing="false" onAction="#doResetPartenza" text="Reset" />
+                  <Button fx:id="btnResetArrivo" layoutX="658.0" layoutY="152.0" mnemonicParsing="false" onAction="#doResetArrivo" text="Reset" />
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calcolo del percorso secondo:" />
+                  <RadioButton fx:id="checkPercorsoVeloce" layoutX="172.0" layoutY="246.0" mnemonicParsing="false" text="Percorso più veloce" textFill="WHITE">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton fx:id="checkMaxCitta" layoutX="172.0" layoutY="273.0" mnemonicParsing="false" text="Massimo numero di città visitabili" textFill="WHITE">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton fx:id="checkColonnineFast" layoutX="172.0" layoutY="300.0" mnemonicParsing="false" text="Presenza colonnine DC Fast Count*" textFill="WHITE">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </RadioButton>
+                  <Label layoutX="184.0" layoutY="774.0" text="*I prezzi potrebbero variare" textFill="WHITE">
+                     <font>
+                        <Font size="7.0" />
+                     </font>
+                  </Label>
+                  <WebView fx:id="webView" layoutX="181.0" layoutY="391.0" prefHeight="384.0" prefWidth="797.0" />
+                  <TextArea fx:id="txtResult" layoutX="430.0" layoutY="194.0" prefHeight="190.0" prefWidth="550.0">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                  </TextArea>
+                  <Button fx:id="btnCalcolaPercorso" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcolo del Percorso" />
+                  <TextField fx:id="txtCittaPartenza" layoutX="229.0" layoutY="60.0" promptText="Inserisci una città..." />
+                  <TextField fx:id="txtCittaArrivo" layoutX="229.0" layoutY="152.0" promptText="Inserisci una città..." />
+                  <ToolBar prefHeight="43.0" prefWidth="170.0">
+                    <items>
+                        <ImageView fx:id="hamburgerMenu" fitHeight="31.0" fitWidth="36.0" onMouseClicked="#showPannello" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/HamburgerMenu.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Scegli Auto" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                    </items>
+                  </ToolBar>
                </children>
-            </VBox>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Scegli un punto di partenza, selezionando la città in cui ti trovi" wrappingWidth="275.8828125">
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <ToolBar prefHeight="67.0" prefWidth="711.0" style="-fx-background-color: maroon;" BorderPane.alignment="CENTER">
+         <items>
+            <Text fill="WHITE" fontSmoothingType="LCD" strokeType="INSIDE" strokeWidth="0.0" text="EV Manager" textAlignment="CENTER" wrappingWidth="607.69287109375">
                <font>
-                  <Font name="System Font" size="13.0" />
+                  <Font size="47.0" />
                </font>
             </Text>
-            <Label layoutX="176.0" layoutY="63.0" text="Città:" textFill="WHITE" />
-            <Label layoutX="418.0" layoutY="63.0" text="Lat." textFill="WHITE" />
-            <TextField fx:id="txtLatPartenza" disable="true" layoutX="452.0" layoutY="58.0" prefHeight="27.0" prefWidth="59.0" />
-            <Label layoutX="532.0" layoutY="63.0" text="Long." textFill="WHITE" />
-            <TextField fx:id="txtLongPartenza" disable="true" layoutX="576.0" layoutY="58.0" prefHeight="27.0" prefWidth="59.0" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Scegli un punto di arrivo, selezionando la città di destinazione" wrappingWidth="289.14794921875" />
-            <Label layoutX="176.0" layoutY="157.0" text="Città:" textFill="WHITE" />
-            <Label layoutX="418.0" layoutY="157.0" text="Lat." textFill="WHITE" />
-            <TextField fx:id="txtLatArrivo" disable="true" layoutX="452.0" layoutY="152.0" prefHeight="27.0" prefWidth="59.0" />
-            <TextField fx:id="txtLongArrivo" disable="true" layoutX="576.0" layoutY="152.0" prefHeight="27.0" prefWidth="59.0" />
-            <Label layoutX="533.0" layoutY="157.0" text="Long." textFill="WHITE" />
-            <Button fx:id="btnResetPartenza" layoutX="658.0" layoutY="58.0" mnemonicParsing="false" onAction="#doResetPartenza" text="Reset" />
-            <Button fx:id="btnResetArrivo" layoutX="658.0" layoutY="152.0" mnemonicParsing="false" onAction="#doResetArrivo" text="Reset" />
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calcolo del percorso secondo:" />
-            <RadioButton fx:id="checkPercorsoVeloce" layoutX="172.0" layoutY="246.0" mnemonicParsing="false" text="Percorso più veloce" textFill="WHITE">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </RadioButton>
-            <RadioButton fx:id="checkMaxCitta" layoutX="172.0" layoutY="273.0" mnemonicParsing="false" text="Massimo numero di città visitabili" textFill="WHITE">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </RadioButton>
-            <RadioButton fx:id="checkColonnineFast" layoutX="172.0" layoutY="300.0" mnemonicParsing="false" text="Presenza colonnine DC Fast Count*" textFill="WHITE">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </RadioButton>
-            <Label layoutX="177.0" layoutY="774.0" text="*I prezzi potrebbero variare" textFill="WHITE">
-               <font>
-                  <Font size="7.0" />
-               </font>
-            </Label>
-            <WebView fx:id="webView" layoutX="439.0" layoutY="218.0" prefHeight="554.0" prefWidth="272.0" />
-            <TextArea fx:id="txtResult" layoutX="179.0" layoutY="372.0" prefHeight="400.0" prefWidth="254.0">
-               <padding>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </padding></TextArea>
-            <Button fx:id="btnCalcolaPercorso" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcolo del Percorso" />
-            <TextField fx:id="txtCittaPartenza" layoutX="229.0" layoutY="60.0" promptText="Inserisci una città..." />
-            <TextField fx:id="txtCittaArrivo" layoutX="229.0" layoutY="152.0" promptText="Inserisci una città..." />
-            <ImageView fx:id="hamburgerMenu" fitHeight="31.0" fitWidth="36.0" onMouseClicked="#showPannello" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../img/HamburgerMenu.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-   </center>
+         </items>
+      </ToolBar>
+   </top>
 </BorderPane>

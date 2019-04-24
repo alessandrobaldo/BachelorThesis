@@ -7,7 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ConnectDB {
 
-	private static final String jdbcURL = "jdbc:mysql://localhost/poweroutages?user=root&serverTimezone=UTC";
+	private static final String jdbcURL = "jdbc:mysql://localhost/Colonnine?user=root&serverTimezone=UTC";
 	private static HikariDataSource ds;
 
 	public static Connection getConnection() {
