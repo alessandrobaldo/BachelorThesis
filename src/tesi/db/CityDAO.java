@@ -12,7 +12,7 @@ import tesi.model.City;
 public class CityDAO {
 
 	public List<City> getAllCities(){
-		String sql = "SELECT Citta FROM CaliforniaCities";
+		String sql = "SELECT * FROM CaliforniaCities";
 		List<City> citta = new ArrayList<>();
 
 		try {

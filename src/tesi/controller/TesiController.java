@@ -15,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -351,7 +353,6 @@ public class TesiController {
     			
     	}
     	
-    	System.out.println(desiderate);
     	
     	if(desiderate.size()==0)
     		txtResult.appendText("Siamo dispiaciuti, nessuna auto soddisfa le sue preferenze\n");
@@ -378,13 +379,28 @@ public class TesiController {
     @FXML
     void doCalcolaPercorso(ActionEvent event) {
 
-    	String partenza=this.txtCittaPartenza.getText();
-    	this.txtLatPartenza.setText(this.model.getLatitudine(partenza));
-    	this.txtLongPartenza.setText(this.model.getLongitudine(partenza));
+    	
+    	
+    }
+    
+    @FXML
+    void generaCoordinateArrivo(KeyEvent event) {
+
     	String arrivo=this.txtCittaArrivo.getText();
     	this.txtLatArrivo.setText(this.model.getLatitudine(arrivo));
     	this.txtLongArrivo.setText(this.model.getLongitudine(arrivo));
+    	
     }
+
+    @FXML
+    void generaCoordinatePartenza(KeyEvent event) {
+
+    	String partenza=this.txtCittaPartenza.getText();
+    	this.txtLatPartenza.setText(this.model.getLatitudine(partenza));
+    	this.txtLongPartenza.setText(this.model.getLongitudine(partenza));
+    	
+    }
+
 
     @FXML
     void initialize() {

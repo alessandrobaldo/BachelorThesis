@@ -166,17 +166,17 @@
                   </Text>
                   <Label layoutX="176.0" layoutY="63.0" text="Città:" textFill="WHITE" />
                   <Label layoutX="418.0" layoutY="63.0" text="Lat." textFill="WHITE" />
-                  <TextField fx:id="txtLatPartenza" disable="true" layoutX="452.0" layoutY="58.0" prefHeight="27.0" prefWidth="59.0" />
-                  <Label layoutX="532.0" layoutY="63.0" text="Long." textFill="WHITE" />
-                  <TextField fx:id="txtLongPartenza" disable="true" layoutX="576.0" layoutY="58.0" prefHeight="27.0" prefWidth="59.0" />
+                  <TextField fx:id="txtLatPartenza" disable="true" layoutX="452.0" layoutY="58.0" prefHeight="27.0" prefWidth="109.0" />
+                  <Label layoutX="593.0" layoutY="63.0" text="Long." textFill="WHITE" />
+                  <TextField fx:id="txtLongPartenza" disable="true" layoutX="656.0" layoutY="58.0" prefHeight="27.0" prefWidth="109.0" />
                   <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Scegli un punto di arrivo, selezionando la città di destinazione" wrappingWidth="289.14794921875" />
                   <Label layoutX="176.0" layoutY="157.0" text="Città:" textFill="WHITE" />
                   <Label layoutX="418.0" layoutY="157.0" text="Lat." textFill="WHITE" />
-                  <TextField fx:id="txtLatArrivo" disable="true" layoutX="452.0" layoutY="152.0" prefHeight="27.0" prefWidth="59.0" />
-                  <TextField fx:id="txtLongArrivo" disable="true" layoutX="576.0" layoutY="152.0" prefHeight="27.0" prefWidth="59.0" />
-                  <Label layoutX="533.0" layoutY="157.0" text="Long." textFill="WHITE" />
-                  <Button fx:id="btnResetPartenza" layoutX="658.0" layoutY="58.0" mnemonicParsing="false" onAction="#doResetPartenza" text="Reset" />
-                  <Button fx:id="btnResetArrivo" layoutX="658.0" layoutY="152.0" mnemonicParsing="false" onAction="#doResetArrivo" text="Reset" />
+                  <TextField fx:id="txtLatArrivo" disable="true" layoutX="452.0" layoutY="152.0" prefHeight="27.0" prefWidth="109.0" />
+                  <TextField fx:id="txtLongArrivo" disable="true" layoutX="656.0" layoutY="152.0" prefHeight="27.0" prefWidth="109.0" />
+                  <Label layoutX="593.0" layoutY="157.0" text="Long." textFill="WHITE" />
+                  <Button fx:id="btnResetPartenza" layoutX="805.0" layoutY="60.0" mnemonicParsing="false" onAction="#doResetPartenza" text="Reset" />
+                  <Button fx:id="btnResetArrivo" layoutX="805.0" layoutY="152.0" mnemonicParsing="false" onAction="#doResetArrivo" text="Reset" />
                   <Text fill="WHITE" fontSmoothingType="LCD" layoutX="176.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calcolo del percorso secondo:" />
                   <RadioButton fx:id="checkPercorsoVeloce" layoutX="172.0" layoutY="246.0" mnemonicParsing="false" text="Percorso più veloce" textFill="WHITE">
                      <padding>
@@ -205,8 +205,8 @@
                      </padding>
                   </TextArea>
                   <Button fx:id="btnCalcolaPercorso" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcolo del Percorso" />
-                  <TextField fx:id="txtCittaPartenza" layoutX="229.0" layoutY="60.0" promptText="Inserisci una città..." />
-                  <TextField fx:id="txtCittaArrivo" layoutX="229.0" layoutY="152.0" promptText="Inserisci una città..." />
+                  <TextField fx:id="txtCittaPartenza" layoutX="229.0" layoutY="60.0" onKeyTyped="#generaCoordinatePartenza" promptText="Inserisci una città..." />
+                  <TextField fx:id="txtCittaArrivo" layoutX="229.0" layoutY="152.0" onKeyTyped="#generaCoordinateArrivo" promptText="Inserisci una città..." />
                   <ToolBar prefHeight="43.0" prefWidth="170.0">
                     <items>
                         <ImageView fx:id="hamburgerMenu" fitHeight="31.0" fitWidth="36.0" onMouseClicked="#showPannello" pickOnBounds="true" preserveRatio="true">

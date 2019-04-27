@@ -69,7 +69,7 @@ public class TesiModel {
 		for(City c:citta)
 			if(c.getNome().equals(partenza))
 				return ""+c.getLatitude();
-		return "Error";
+		return "";
 	}
 
 
@@ -78,7 +78,7 @@ public class TesiModel {
 		for(City c:citta)
 			if(c.getNome().equals(partenza))
 				return ""+c.getLongitude();
-		return "Error";
+		return "";
 	}
 
 	
