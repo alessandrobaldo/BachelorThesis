@@ -205,8 +205,6 @@
                      </padding>
                   </TextArea>
                   <Button fx:id="btnCalcolaPercorso" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcolo del Percorso" />
-                  <TextField fx:id="txtCittaPartenza" layoutX="229.0" layoutY="60.0" onKeyTyped="#generaCoordinatePartenza" promptText="Inserisci una città..." />
-                  <TextField fx:id="txtCittaArrivo" layoutX="229.0" layoutY="152.0" onKeyTyped="#generaCoordinateArrivo" promptText="Inserisci una città..." />
                   <ToolBar prefHeight="43.0" prefWidth="170.0">
                     <items>
                         <ImageView fx:id="hamburgerMenu" fitHeight="31.0" fitWidth="36.0" onMouseClicked="#showPannello" pickOnBounds="true" preserveRatio="true">
@@ -224,6 +222,8 @@
                         </Label>
                     </items>
                   </ToolBar>
+                  <ChoiceBox fx:id="boxCittaPartenza" layoutX="229.0" layoutY="58.0" onMouseExited="#generaCoordinatePartenza" prefHeight="27.0" prefWidth="167.0" />
+                  <ChoiceBox fx:id="boxCittaArrivo" layoutX="229.0" layoutY="152.0" onMouseExited="#generaCoordinateArrivo" prefHeight="27.0" prefWidth="167.0" />
                </children>
             </AnchorPane>
          </content>

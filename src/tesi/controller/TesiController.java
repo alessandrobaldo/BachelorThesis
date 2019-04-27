@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -131,10 +132,11 @@ public class TesiController {
     private Button btnCalcolaPercorso;
 
     @FXML
-    private TextField txtCittaPartenza;
+    private ChoiceBox<String> boxCittaPartenza;
 
     @FXML
-    private TextField txtCittaArrivo;
+    private ChoiceBox<String> boxCittaArrivo;
+
 
     @FXML
     private ImageView hamburgerMenu;
@@ -198,14 +200,7 @@ public class TesiController {
     }
 
 
-    @FXML
-    void doResetArrivo(ActionEvent event) {
-    	this.txtCittaArrivo.clear();
-    	this.txtLatArrivo.clear();
-    	this.txtLongArrivo.clear();
-
-    }
-    
+   
     @FXML
     void doResetAuto(ActionEvent event) {
     	txtResult.clear();
@@ -213,17 +208,13 @@ public class TesiController {
     	this.checkCompro.setDisable(false);
     	this.checkNoleggio.selectedProperty().set(false);
     	this.checkNoleggio.setDisable(false);
-    	this.tendinaModello.getItems().clear();
-    	this.tendinaModello.getItems().addAll(this.model.getModelli());
+    	this.tendinaModello.setValue(null);
     	this.tendinaModello.setDisable(false);
-    	this.tendinaMarca.getItems().clear();
-		this.tendinaMarca.getItems().addAll(this.model.getMarche());
+    	this.tendinaMarca.setValue(null);
 		this.tendinaMarca.setDisable(false);
-		this.tendinaNumPosti.getItems().clear();
-		this.tendinaNumPosti.getItems().addAll(this.model.getNumPosti());
+		this.tendinaNumPosti.setValue(null);
 		this.tendinaNumPosti.setDisable(false);
-		this.tendinaSegmento.getItems().clear();
-		this.tendinaSegmento.getItems().addAll(this.model.getSegmenti());
+		this.tendinaSegmento.setValue(null);
 		this.tendinaSegmento.setDisable(false);
 		this.sliderPrezzo.setValue(0);
 		this.sliderPrezzo.setDisable(false);
@@ -245,12 +236,8 @@ public class TesiController {
     
     }
 
-    @FXML
-    void doResetPartenza(ActionEvent event) {
-    	this.txtCittaPartenza.clear();
-    	this.txtLatPartenza.clear();
-    	this.txtLongPartenza.clear();
-    }
+   
+    
     
     @FXML
     void doTrovaRisultati(ActionEvent event) {
@@ -384,21 +371,39 @@ public class TesiController {
     }
     
     @FXML
-    void generaCoordinateArrivo(KeyEvent event) {
-
-    	String arrivo=this.txtCittaArrivo.getText();
+    void generaCoordinateArrivo(MouseEvent event) {
+    	if(!this.boxCittaArrivo.getSelectionModel().isEmpty()) {
+    	String arrivo=this.boxCittaArrivo.getValue();
     	this.txtLatArrivo.setText(this.model.getLatitudine(arrivo));
     	this.txtLongArrivo.setText(this.model.getLongitudine(arrivo));
+    	}
     	
     }
 
     @FXML
-    void generaCoordinatePartenza(KeyEvent event) {
-
-    	String partenza=this.txtCittaPartenza.getText();
+    void generaCoordinatePartenza(MouseEvent event) {
+    	if(!this.boxCittaPartenza.getSelectionModel().isEmpty()) {
+    	String partenza=this.boxCittaPartenza.getValue();
     	this.txtLatPartenza.setText(this.model.getLatitudine(partenza));
     	this.txtLongPartenza.setText(this.model.getLongitudine(partenza));
+    	}
     	
+    }
+    
+    @FXML
+    void doResetPartenza(ActionEvent event) {
+    	
+    	this.boxCittaPartenza.setValue(null);
+    	this.txtLatPartenza.clear();
+    	this.txtLongPartenza.clear();
+    }
+    
+    @FXML
+    void doResetArrivo(ActionEvent event) {
+    	this.boxCittaArrivo.setValue(null);
+    	this.txtLatArrivo.clear();
+    	this.txtLongArrivo.clear();
+
     }
 
 
@@ -433,8 +438,8 @@ public class TesiController {
         assert webView != null : "fx:id=\"webView\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert btnCalcolaPercorso != null : "fx:id=\"btnCalcolaPercorso\" was not injected: check your FXML file 'Tesi.fxml'.";
-        assert txtCittaPartenza != null : "fx:id=\"txtCittaPartenza\" was not injected: check your FXML file 'Tesi.fxml'.";
-        assert txtCittaArrivo != null : "fx:id=\"txtCittaArrivo\" was not injected: check your FXML file 'Tesi.fxml'.";
+        assert boxCittaPartenza != null : "fx:id=\"boxCittaPartenza\" was not injected: check your FXML file 'Tesi.fxml'.";
+        assert boxCittaArrivo != null : "fx:id=\"boxCittaArrivo\" was not injected: check your FXML file 'Tesi.fxml'.";
         assert hamburgerMenu != null : "fx:id=\"hamburgerMenu\" was not injected: check your FXML file 'Tesi.fxml'.";
 
     }
@@ -452,5 +457,8 @@ public class TesiController {
 		this.auto=this.model.getAllAuto();
 		Image i=new Image("file:/Users/alebaldus/Desktop/Politecnico/Tecniche%20di%20Programmazione/Eclipse/Tesi/img/logoTesi.jpg");
 		this.boxLogo.setBackground(new Background(new BackgroundImage(i,BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		this.boxCittaPartenza.getItems().addAll(this.model.getCitta());
+		this.boxCittaArrivo.getItems().addAll(this.model.getCitta());
+
 	}
 }

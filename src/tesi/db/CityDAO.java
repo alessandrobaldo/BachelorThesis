@@ -32,4 +32,26 @@ public class CityDAO {
 
 		return citta;
 	}
+	
+	public List<String> getNameOfCities(){
+		String sql = "SELECT Citta FROM CaliforniaCities";
+		List<String> citta = new ArrayList<>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+
+			while (res.next()) {
+				citta.add(res.getString("Citta"));
+			}
+
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return citta;
+	}
 }

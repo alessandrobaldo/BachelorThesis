@@ -81,6 +81,12 @@ public class TesiModel {
 		return "";
 	}
 
+
+	public List<String> getCitta() {
+		// TODO Auto-generated method stub
+		return cdao.getNameOfCities();
+	}
+
 	
 
 }
