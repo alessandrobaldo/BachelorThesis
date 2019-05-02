@@ -354,9 +354,11 @@ public class TesiController {
     void showPannello(MouseEvent event) {
     	if(this.pannello.isVisible()) {
     		this.pannello.setVisible(false);
+    		//this.pannello.setManaged(false);
     		return;}
     	else {
     		this.pannello.setVisible(true);
+    		//this.pannello.setManaged(false);
     		return;
     	}
 
@@ -366,6 +368,8 @@ public class TesiController {
     @FXML
     void doCalcolaPercorso(ActionEvent event) {
 
+    	this.model.creaGrafo();
+    	txtResult.appendText(model.getReteStazioni().toString());
     	
     	
     }

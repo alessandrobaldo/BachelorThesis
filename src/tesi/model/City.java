@@ -1,49 +1,33 @@
 package tesi.model;
 
+import com.javadocmd.simplelatlng.LatLng;
+
 public class City {
 
 	private String nome;
-	private float latitude;
-	private float longitude;
+	private LatLng coords;
 	
-	
-	public City(String nome, float latitude, float longitude) {
+	public City(String nome, LatLng coords) {
 		super();
 		this.nome = nome;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.coords = coords;
 	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-	public float getLatitude() {
-		return latitude;
+	public LatLng getCoords() {
+		return coords;
 	}
 
-
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
+	public void setCoords(LatLng coords) {
+		this.coords = coords;
 	}
-
-
-	public float getLongitude() {
-		return longitude;
-	}
-
-
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
-
 
 	@Override
 	public int hashCode() {
@@ -52,7 +36,6 @@ public class City {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -73,6 +56,4 @@ public class City {
 	
 	
 	
-	
-
 }
