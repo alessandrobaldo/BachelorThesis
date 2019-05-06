@@ -2,6 +2,8 @@ package tesi.model;
 
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
@@ -16,10 +18,14 @@ import tesi.db.ColonnineDAO;
 public class TesiModel {
 	private ColonnineDAO dao;
 	private Graph<StazioniRicarica, DefaultWeightedEdge> reteStazioni;
+	private Map <LatLng, City> cities; //LatLng non supporta comparable
+	private Map <LatLng, StazioniRicarica> stations;
 	
 	public TesiModel() {
 		this.dao=new ColonnineDAO();
 		reteStazioni=new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
+		this.cities=new TreeMap<>();
+		this.stations=new TreeMap<>();
 	}
 
 	
@@ -72,7 +78,7 @@ public class TesiModel {
 
 
 	public String getLatitudine(String partenza) {
-		List<City> citta=this.dao.getAllCities();
+		List<City> citta=this.dao.getAllCities(this.cities);
 		for(City c:citta)
 			if(c.getNome().equals(partenza))
 				return ""+c.getCoords().getLatitude();
@@ -81,7 +87,7 @@ public class TesiModel {
 
 
 	public String getLongitudine(String partenza) {
-		List<City> citta=this.dao.getAllCities();
+		List<City> citta=this.dao.getAllCities(this.cities);
 		for(City c:citta)
 			if(c.getNome().equals(partenza))
 				return ""+c.getCoords().getLongitude();
@@ -94,12 +100,21 @@ public class TesiModel {
 		return dao.getNameOfCities();
 	}
 	
-	public void creaGrafo() {
-		Graphs.addAllVertices(this.reteStazioni, dao.getListStazioni());
-		for(StazioniRicarica r:this.reteStazioni.vertexSet())
-			for(StazioniRicarica s:dao.getStazioniRaggiungibili(r)) {
-				ArcoStazione a=new ArcoStazione(r,s,this.distanzaPunti(r.getCoords(),s.getCoords()));
-				Graphs.addEdge(this.reteStazioni,a.getS1(), a.getS2(), a.getDistance());}
+	public void creaGrafo(String partenza, String arrivo) {
+		Graphs.addAllVertices(this.reteStazioni, dao.getListStazioni(this.stations,this.cities));
+
+		List<ArcoStazione> daPartenza=dao.getAllEdges(partenza, this.stations);
+		List<ArcoStazione> daArrivo=dao.getAllEdges(arrivo, this.stations);
+		
+		for(ArcoStazione a: daPartenza) {
+			a.setDistance(this.distanzaPunti(a.getS1().getCoords(), a.getS2().getCoords()));
+			Graphs.addEdge(this.reteStazioni, a.getS1(), a.getS2(), a.getDistance());}
+		
+		for(ArcoStazione a: daArrivo) {
+			a.setDistance(this.distanzaPunti(a.getS1().getCoords(), a.getS2().getCoords()));
+			Graphs.addEdge(this.reteStazioni, a.getS1(), a.getS2(), a.getDistance());}
+		
+
 	}
 	
 	public float distanzaPunti(LatLng coords1, LatLng coords2) {

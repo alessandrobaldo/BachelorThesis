@@ -23,6 +23,11 @@
          <children>
             <ToolBar prefHeight="55.0" prefWidth="291.0" style="-fx-background-color: maroon;">
                <items>
+                  <ImageView fx:id="btnHome" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#doBackHome" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/Home.png" />
+                     </image>
+                  </ImageView>
                   <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="EV Manager - Calcolo del Percorso" textAlignment="CENTER" wrappingWidth="529.3662109375">
                      <font>
                         <Font name="System Bold" size="27.0" />

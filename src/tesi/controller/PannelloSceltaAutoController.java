@@ -6,13 +6,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import tesi.model.AutoElettriche;
 import tesi.model.TesiModel;
 
@@ -20,6 +26,9 @@ public class PannelloSceltaAutoController {
 	
 	private TesiModel model;
 	private List<AutoElettriche> auto;
+	private Stage primaryStage;
+	private Stage secondaryStage;
+	private Stage itself;
 	
 
     @FXML
@@ -27,6 +36,12 @@ public class PannelloSceltaAutoController {
 
     @FXML
     private URL location;
+    
+    @FXML
+    private ImageView btnHome;
+
+    @FXML
+    private ImageView btnForward;
 
     @FXML
     private CheckBox checkCompro;
@@ -76,8 +91,7 @@ public class PannelloSceltaAutoController {
     @FXML
     private TextArea txtResult;
 
-    @FXML
-    private WebView webView;
+   
 
     @FXML
     void checkSelectedMarca(MouseEvent event) {
@@ -280,10 +294,62 @@ public class PannelloSceltaAutoController {
     	
     	
     }
+    
+    @FXML
+    void goBackHome(MouseEvent event) {
+    	try {
+        	primaryStage=new Stage();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("PannelloIniziale.fxml"));
+    		BorderPane root = (BorderPane) loader.load();
+    		
+    		Scene scene=new Scene(root);
+    		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+    		
+    		PannelloInizialeController controller=loader.getController();
+    		TesiModel model=new TesiModel();
+    		controller.setModel(model);
+    		
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+    		controller.setItself(primaryStage);
+    		itself.close();
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+
+
+    }
+
+    @FXML
+    void goForward(MouseEvent event) {
+
+    	try {
+        	secondaryStage=new Stage();
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("PannelloCalcoloPercorso.fxml"));
+    		BorderPane root = (BorderPane) loader.load();
+    		
+    		Scene scene=new Scene(root);
+    		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+    		
+    		PannelloCalcoloPercorsoController controller=loader.getController();
+    		TesiModel model=new TesiModel();
+    		controller.setModel(model);
+    		
+    		secondaryStage.setScene(scene);
+    		secondaryStage.show();
+    		controller.setItself(secondaryStage);
+    		itself.close();
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+
+    }
 
 
     @FXML
     void initialize() {
+    	assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert btnForward != null : "fx:id=\"btnForward\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert checkCompro != null : "fx:id=\"checkCompro\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert checkNoleggio != null : "fx:id=\"checkNoleggio\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert tendinaMarca != null : "fx:id=\"tendinaMarca\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
@@ -300,7 +366,6 @@ public class PannelloSceltaAutoController {
         assert btnRisultatiAuto != null : "fx:id=\"btnRisultatiAuto\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert btnResetAuto != null : "fx:id=\"btnResetAuto\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
-        assert webView != null : "fx:id=\"webView\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
 
     }
 
@@ -311,6 +376,15 @@ public class PannelloSceltaAutoController {
 		this.tendinaNumPosti.getItems().addAll(this.model.getNumPosti());
 		this.tendinaSegmento.getItems().addAll(this.model.getSegmenti());
 		this.auto=this.model.getAllAuto();
+		//WebEngine engine=this.webView.getEngine();
+		//engine.load("https://www.openstreetmap.org/#map=5/32.454/-113.687&layers=G");
+		//engine.load("file:/Users/alebaldus/Desktop/Politecnico/Tecniche%20di%20Programmazione/Eclipse/Tesi/html/WebViewCalifornia.html");
+
 	}
+
+	public void setItself(Stage itself) {
+		this.itself = itself;
+	}
+	
     
 }

@@ -13,9 +13,11 @@ import tesi.model.TesiModel;
 
 public class PannelloInizialeController {
 
-	TesiModel model;
-	Stage secondaryStage;
-	Stage tertiaryStage;
+	private TesiModel model;
+	private Stage secondaryStage;
+	private Stage tertiaryStage;
+	private Stage itself;
+	
     @FXML
     private ResourceBundle resources;
 
@@ -30,6 +32,7 @@ public class PannelloInizialeController {
 
     @FXML
     void showScegliAuto(ActionEvent event) {
+    	
     	try {
     	secondaryStage=new Stage();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("PannelloSceltaAuto.fxml"));
@@ -44,9 +47,16 @@ public class PannelloInizialeController {
 		
 		secondaryStage.setScene(scene);
 		secondaryStage.show();
+		controller.setItself(secondaryStage);
+		itself.close();
+		
+		
+		
+		
 	} catch(Exception e) {
 		e.printStackTrace();
 	}
+    	
 
     }
 
@@ -67,6 +77,8 @@ public class PannelloInizialeController {
     		
     		tertiaryStage.setScene(scene);
     		tertiaryStage.show();
+    		controller.setItself(tertiaryStage);
+    		itself.close();
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
@@ -81,6 +93,10 @@ public class PannelloInizialeController {
 
 	public void setModel(TesiModel model) {
 		this.model = model;
+	}
+
+	public void setItself(Stage itself) {
+		this.itself = itself;
 	}
     
     

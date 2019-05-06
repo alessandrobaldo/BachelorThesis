@@ -178,7 +178,7 @@ public class AutoElettriche {
 	@Override
 	public String toString() {
 		return String.format(
-				"Marca:%s, Modello:%s\n Autonomia:%s, Efficienza:%s, Velocita di Ricarica:%s, Ricarica Rapida=%s\n Trazione Integrale=%s, Numero Posti=%s, Segmento=%s\n Prestazioni 0-100=%s, Velocita Massima=%s\n",
+				"Marca:%s, Modello:%s\nAutonomia:%s, Efficienza:%s, Velocita di Ricarica:%s, Ricarica Rapida=%s\nTrazione Integrale=%s, Numero Posti=%s, Segmento=%s\nPrestazioni 0-100=%s, Velocita Massima=%s\n",
 				marca, modello, autonomia, efficienza, velocitaRicarica, ricaricaRapida, trazioneIntegrale, numeroPosti,
 				segmento, prestazioni, velocitaMax);
 	}

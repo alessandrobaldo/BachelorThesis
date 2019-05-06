@@ -12,6 +12,16 @@ public class ArcoStazione {
 		this.s2 = s2;
 		this.distance = distance;
 	}
+	
+	
+
+	public ArcoStazione(StazioniRicarica s1, StazioniRicarica s2) {
+		super();
+		this.s1 = s1;
+		this.s2 = s2;
+	}
+
+
 
 	public StazioniRicarica getS1() {
 		return s1;
@@ -35,6 +45,11 @@ public class ArcoStazione {
 
 	public void setDistance(float distance) {
 		this.distance = distance;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("ArcoStazione [s1=%s, s2=%s, distance=%s]", s1, s2, distance);
 	}
 	
 	

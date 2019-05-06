@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.javadocmd.simplelatlng.LatLng;
 
+import tesi.model.ArcoStazione;
 import tesi.model.AutoElettriche;
 import tesi.model.City;
 import tesi.model.StazioniRicarica;
@@ -251,7 +253,7 @@ public class ColonnineDAO {
 	
 	//CityDAO
 	
-	public List<City> getAllCities(){
+	public List<City> getAllCities(Map<LatLng, City> cityMap){
 		String sql = "SELECT * FROM CaliforniaCities";
 		List<City> citta = new ArrayList<>();
 
@@ -261,7 +263,14 @@ public class ColonnineDAO {
 			ResultSet res = st.executeQuery();
 
 			while (res.next()) {
-				citta.add(new City(res.getString("Citta"),new LatLng(Float.parseFloat(res.getString("Latitude")),Float.parseFloat(res.getString("Longitude")))));
+				LatLng coords=new LatLng(Float.parseFloat(res.getString("Latitude")),Float.parseFloat(res.getString("Longitude")));
+				if(cityMap.get(coords)==null) {
+					City c=new City(res.getString("Citta"),new LatLng(Float.parseFloat(res.getString("Latitude")),Float.parseFloat(res.getString("Longitude"))));
+					cityMap.put(coords, c);
+					citta.add(c);
+				}
+				else
+					citta.add(cityMap.get(coords));
 			}
 
 			conn.close();
@@ -295,8 +304,8 @@ public class ColonnineDAO {
 		return citta;
 	}
 	
-	public City getCityByName(String name) {
-		List<City> citta=this.getAllCities();
+	public City getCityByName(String name, Map <LatLng, City> cityMap) {
+		List<City> citta=this.getAllCities(cityMap);
 		for(City c:citta)
 			if(c.getNome().equals(name))
 				return c;
@@ -306,7 +315,7 @@ public class ColonnineDAO {
 
 	//StazioniRicaricaDAO
 	
-	public List<StazioniRicarica> getListStazioni() {
+	public List<StazioniRicarica> getListStazioni(Map <LatLng, StazioniRicarica> stationMap, Map<LatLng, City> cityMap) {
 
 		String sql = "SELECT * FROM StazioniRicarica";
 		List<StazioniRicarica> stazioni = new ArrayList<>();
@@ -317,8 +326,14 @@ public class ColonnineDAO {
 			ResultSet res = st.executeQuery();
 
 			while (res.next()) {
-				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Street Address"), this.getCityByName(res.getString("City")), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
+				LatLng coords=new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude")));
+				if(stationMap.get(coords)==null) {
+				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Street Address"), this.getCityByName(res.getString("City"), cityMap), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
+				stationMap.put(coords, s);
 				stazioni.add(s);
+				}
+				else
+					stazioni.add(stationMap.get(coords));
 			}
 
 			conn.close();
@@ -330,7 +345,7 @@ public class ColonnineDAO {
 		return stazioni;
 	}
 	
-	public List<StazioniRicarica> getStazioniRaggiungibili( StazioniRicarica partenza){
+	/*public List<StazioniRicarica> getStazioniRaggiungibili( StazioniRicarica partenza, ){
 		String sql = "SELECT * FROM StazioniRicarica WHERE Latitude!=? AND Longitude!=?";
 		List<StazioniRicarica> stazioni = new ArrayList<>();
 
@@ -342,9 +357,9 @@ public class ColonnineDAO {
 			ResultSet res = st.executeQuery();
 
 			while (res.next()) {
-				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Station Address"), this.getCityByName(res.getString("City")), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
+				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Street Address"), this.getCityByName(res.getString("City"), cityMap), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
 				stazioni.add(s);
-			}
+			} 
 
 			conn.close();
 
@@ -353,6 +368,34 @@ public class ColonnineDAO {
 		}
 
 		return stazioni;
+	}*/
+	
+	public List<ArcoStazione> getAllEdges(String city, Map<LatLng, StazioniRicarica> stationMap){
+		String sql = "SELECT s1.Latitude AS LA1, s1.Longitude AS LO1,  s2.Latitude AS LA2, s2.Longitude AS LO2 FROM StazioniRicarica s1, StazioniRicarica s2 WHERE s1.Latitude!=s2.Latitude AND s1.Longitude!=s2.Longitude AND s1.City=? AND s1.City!=s2.CIty GROUP BY s1.Latitude, s1.Longitude, s2.Latitude, s2.Longitude";
+		List<ArcoStazione> archi = new ArrayList<>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, city);
+			ResultSet res = st.executeQuery();
+
+			while (res.next()) {
+				LatLng coords1=new LatLng(Float.parseFloat(res.getString("LA1")), Float.parseFloat(res.getString("LO1")));
+				LatLng coords2=new LatLng(Float.parseFloat(res.getString("LA2")), Float.parseFloat(res.getString("LO2")));
+				ArcoStazione a=new ArcoStazione(stationMap.get(coords1),stationMap.get(coords2));
+				archi.add(a);
+			}
+
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return archi;
 	}
+	
+	
 	
 }
