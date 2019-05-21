@@ -1,7 +1,7 @@
 package tesi.model;
 import com.javadocmd.simplelatlng.LatLng;
 
-public class StazioniRicarica {
+public class StazioniRicarica extends Vertex {
 
 	private int id;
 	private String stationName;
@@ -146,6 +146,16 @@ public class StazioniRicarica {
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return String.format("Chargepoint: %s, %s\n",this.streetAddress.toUpperCase(), city.getNome().toUpperCase());
+	}
+
+
+	
+	
 
 
 	

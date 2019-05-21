@@ -6,7 +6,8 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="339.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.PannelloSceltaAutoController">
+<BorderPane prefHeight="409.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.PannelloSceltaAutoController">
    <center>
       <VBox prefHeight="339.0" prefWidth="597.0" style="-fx-background-color: cadetblue;" BorderPane.alignment="CENTER">
          <children>
@@ -213,7 +214,7 @@
                   </VBox>
                </children>
             </Pane>
-            <HBox prefHeight="170.0" prefWidth="602.0">
+            <HBox prefHeight="240.0" prefWidth="602.0">
                <children>
                   <VBox prefHeight="133.0" prefWidth="122.0">
                      <children>
@@ -229,14 +230,23 @@
                         </Button>
                      </children>
                   </VBox>
-                  <TextArea fx:id="txtResult" prefHeight="123.0" prefWidth="474.0">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </TextArea>
+                  <TableView fx:id="tableResult" prefHeight="203.0" prefWidth="545.0">
+                    <columns>
+                        <TableColumn fx:id="columnMarca" prefWidth="100.0" text="Marca" />
+                        <TableColumn fx:id="columnModello" prefWidth="175.0" text="Modello" />
+                      <TableColumn fx:id="columnVendita" minWidth="120.0" prefWidth="125.0" text="Prezzo Vendita (€)" />
+                      <TableColumn fx:id="columnNoleggio" prefWidth="135.0" text="Prezzo Noleggio (€)" />
+                        <TableColumn fx:id="columnAutonomia" prefWidth="120.0" text="Autonomia (km)" />
+                        <TableColumn fx:id="columnEfficienza" prefWidth="110.0" text="Efficienza (kWh)" />
+                        <TableColumn fx:id="columnVelRicarica" prefWidth="175.0" text="Velocità Ricarica (km/h)" />
+                        <TableColumn fx:id="columnRicaricaRapida" prefWidth="150.0" text="Ricarica Rapida" />
+                        <TableColumn fx:id="columnTrazione" prefWidth="150.0" text="Trazione Integrale" />
+                        <TableColumn fx:id="columnSegmento" prefWidth="100.0" text="Segmento" />
+                        <TableColumn fx:id="columnNumPosti" prefWidth="135.0" text="Numero Posti" />
+                        <TableColumn fx:id="columnPrestazioni" prefWidth="120.0" text="Prestazioni (s)" />
+                        <TableColumn fx:id="columnVelMax" prefWidth="150.0" text="Velocità Max (km/h)" />
+                    </columns>
+                  </TableView>
                </children>
                <VBox.margin>
                   <Insets />

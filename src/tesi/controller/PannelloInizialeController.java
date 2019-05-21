@@ -47,6 +47,7 @@ public class PannelloInizialeController {
 		
 		secondaryStage.setScene(scene);
 		secondaryStage.show();
+		secondaryStage.setResizable(false);
 		controller.setItself(secondaryStage);
 		itself.close();
 		
@@ -77,7 +78,9 @@ public class PannelloInizialeController {
     		
     		tertiaryStage.setScene(scene);
     		tertiaryStage.show();
+    		tertiaryStage.setResizable(false);
     		controller.setItself(tertiaryStage);
+    		controller.setModelloAuto();
     		itself.close();
     	} catch(Exception e) {
     		e.printStackTrace();

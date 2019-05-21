@@ -16,8 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
-<BorderPane prefHeight="408.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.PannelloCalcoloPercorsoController">
+<BorderPane prefHeight="600.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tesi.controller.PannelloCalcoloPercorsoController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -35,17 +36,27 @@
                   </Text>
                </items>
             </ToolBar>
-            <Pane style="-fx-background-color: cadetblue;">
+            <Pane prefHeight="546.0" prefWidth="1150.0" style="-fx-background-color: cadetblue;">
                <children>
                   <HBox>
                      <children>
-                        <VBox prefHeight="356.0" prefWidth="388.0">
+                        <VBox prefHeight="356.0" prefWidth="556.0">
                            <children>
                               <HBox prefHeight="42.0" prefWidth="407.0">
                                  <children>
-                                    <Label text="Autonomia Massima" textFill="WHITE">
+                                    <Label text="Modello Scelto" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtModelloScelto" disable="true" prefHeight="27.0" prefWidth="159.0">
                                        <HBox.margin>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label text="Autonomia Massima" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                                        </HBox.margin>
                                     </Label>
                                     <TextField fx:id="txtAutonomiaScelta" disable="true" prefHeight="27.0" prefWidth="96.0">
@@ -59,7 +70,10 @@
                                  <children>
                                     <VBox prefHeight="66.0" prefWidth="485.0">
                                        <children>
-                                          <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli la Città di Partenza" textAlignment="CENTER" wrappingWidth="293.11083984375" />
+                                          <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli la Città di Partenza" wrappingWidth="283.11083984375">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </VBox.margin></Text>
                                           <HBox prefHeight="51.0" prefWidth="421.0">
                                              <children>
                                                 <Label text="Partenza" textFill="WHITE">
@@ -67,7 +81,7 @@
                                                       <Insets bottom="10.0" left="5.0" right="2.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <ChoiceBox fx:id="boxCittaPartenza" onMouseExited="#generaCoordinatePartenza" prefHeight="27.0" prefWidth="80.0">
+                                                <ChoiceBox fx:id="boxCittaPartenza" onMouseExited="#generaCoordinatePartenza" prefHeight="27.0" prefWidth="110.0">
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -77,7 +91,7 @@
                                                       <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="txtLatPartenza" disable="true" prefHeight="27.0" prefWidth="70.0">
+                                                <TextField fx:id="txtLatPartenza" disable="true" prefHeight="27.0" prefWidth="100.0">
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -87,7 +101,7 @@
                                                       <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="txtLongPartenza" disable="true" prefHeight="27.0" prefWidth="70.0">
+                                                <TextField fx:id="txtLongPartenza" disable="true" prefHeight="27.0" prefWidth="100.0">
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -102,7 +116,7 @@
                                  <children>
                                     <VBox prefHeight="66.0" prefWidth="486.0">
                                        <children>
-                                          <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli la Città di Arrivo" textAlignment="CENTER" wrappingWidth="264.40087890625">
+                                          <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Scegli la Città di Arrivo" wrappingWidth="264.40087890625">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
@@ -114,7 +128,7 @@
                                                       <Insets bottom="10.0" left="5.0" right="2.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <ChoiceBox fx:id="boxCittaArrivo" onMouseExited="#generaCoordinateArrivo" prefHeight="27.0" prefWidth="80.0">
+                                                <ChoiceBox fx:id="boxCittaArrivo" onMouseExited="#generaCoordinateArrivo" prefHeight="27.0" prefWidth="110.0">
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="22.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -124,7 +138,7 @@
                                                       <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="txtLatArrivo" disable="true" prefHeight="27.0" prefWidth="70.0">
+                                                <TextField fx:id="txtLatArrivo" disable="true" prefHeight="27.0" prefWidth="100.0">
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -134,7 +148,7 @@
                                                       <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="txtLongArrivo" disable="true" prefHeight="27.0" prefWidth="70.0">
+                                                <TextField fx:id="txtLongArrivo" disable="true" prefHeight="27.0" prefWidth="100.0">
                                                    <HBox.margin>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -145,56 +159,66 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="178.0" prefWidth="388.0">
+                              <HBox prefHeight="368.0" prefWidth="556.0">
                                  <children>
-                                    <VBox prefHeight="187.0" prefWidth="182.0">
+                                    <VBox prefHeight="368.0" prefWidth="567.0">
                                        <children>
                                           <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Calcolo del Percorso">
                                              <VBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                                              </VBox.margin>
                                           </Text>
-                                          <RadioButton fx:id="checkPercorsoVeloce" mnemonicParsing="false" text="Più Veloce" textFill="WHITE">
-                                             <VBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </VBox.margin>
-                                          </RadioButton>
-                                          <RadioButton fx:id="checkColonnineFast" mnemonicParsing="false" text="Con Colonnine DC Fast" textFill="WHITE">
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton fx:id="checkPercorsoVeloce" mnemonicParsing="false" text="Più Veloce" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </RadioButton>
+                                                <Button fx:id="btnCalcolaPercorso" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcola Percorso">
+                                                   <HBox.margin>
+                                                      <Insets left="105.0" right="50.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton fx:id="checkColonnineFast" mnemonicParsing="false" prefHeight="28.0" prefWidth="176.0" text="Con Colonnine DC Fast" textFill="WHITE">
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </RadioButton>
+                                                <Button fx:id="btnResetPercorso" mnemonicParsing="false" onAction="#doResetPercorso" text="Reset">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="23.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <TextArea fx:id="txtResult" prefHeight="328.0" prefWidth="375.0">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
-                                          </RadioButton>
-                                          <Button fx:id="btnCalcolaPercorso" mnemonicParsing="false" onAction="#doCalcolaPercorso" text="Calcola Percorso">
                                              <VBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                              </VBox.margin>
-                                          </Button>
-                                          <Button fx:id="btnResetPercorso" mnemonicParsing="false" onAction="#doResetPercorso" text="Reset">
-                                             <VBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </VBox.margin>
-                                          </Button>
+                                          </TextArea>
                                        </children>
                                     </VBox>
-                                    <TextArea fx:id="txtResult" prefHeight="187.0" prefWidth="218.0">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextArea>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="339.0" prefWidth="298.0" style="-fx-background-color: mediumturquoise;">
+                        <VBox prefHeight="545.0" prefWidth="592.0" style="-fx-background-color: mediumturquoise;">
                            <children>
-                              <ImageView fitHeight="358.0" fitWidth="299.0" pickOnBounds="true" preserveRatio="true">
+                              <WebView fx:id="webView" prefHeight="553.0" prefWidth="592.0">
                                  <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <image>
-                                    <Image url="@../../../img/MappaCali.gif" />
-                                 </image>
-                              </ImageView>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </VBox.margin></WebView>
                            </children>
                         </VBox>
                      </children>

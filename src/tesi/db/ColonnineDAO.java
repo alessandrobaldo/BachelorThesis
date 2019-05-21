@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.javadocmd.simplelatlng.LatLng;
+import com.javadocmd.simplelatlng.LatLngTool;
+import com.javadocmd.simplelatlng.util.LengthUnit;
 
 import tesi.model.ArcoStazione;
 import tesi.model.AutoElettriche;
@@ -253,8 +255,8 @@ public class ColonnineDAO {
 	
 	//CityDAO
 	
-	public List<City> getAllCities(Map<LatLng, City> cityMap){
-		String sql = "SELECT * FROM CaliforniaCities";
+	public List<City> getAllCities(Map<String, City> cityMap){
+		String sql = "SELECT * FROM CaliforniaCities ORDER BY Citta ASC";
 		List<City> citta = new ArrayList<>();
 
 		try {
@@ -263,14 +265,13 @@ public class ColonnineDAO {
 			ResultSet res = st.executeQuery();
 
 			while (res.next()) {
-				LatLng coords=new LatLng(Float.parseFloat(res.getString("Latitude")),Float.parseFloat(res.getString("Longitude")));
-				if(cityMap.get(coords)==null) {
+				if(cityMap.get(res.getString("Citta"))==null) {
 					City c=new City(res.getString("Citta"),new LatLng(Float.parseFloat(res.getString("Latitude")),Float.parseFloat(res.getString("Longitude"))));
-					cityMap.put(coords, c);
+					cityMap.put(c.getNome(), c);
 					citta.add(c);
 				}
 				else
-					citta.add(cityMap.get(coords));
+					citta.add(cityMap.get(res.getString("Citta")));
 			}
 
 			conn.close();
@@ -282,8 +283,10 @@ public class ColonnineDAO {
 		return citta;
 	}
 	
+	
+	
 	public List<String> getNameOfCities(){
-		String sql = "SELECT Citta FROM CaliforniaCities";
+		String sql = "SELECT Citta FROM CaliforniaCities ORDER BY Citta ASC";
 		List<String> citta = new ArrayList<>();
 
 		try {
@@ -304,10 +307,10 @@ public class ColonnineDAO {
 		return citta;
 	}
 	
-	public City getCityByName(String name, Map <LatLng, City> cityMap) {
+	public City getCityByName(String name, Map <String, City> cityMap) {
 		List<City> citta=this.getAllCities(cityMap);
 		for(City c:citta)
-			if(c.getNome().equals(name))
+			if(c.getNome().toLowerCase().trim().equals(name.toLowerCase().trim()))
 				return c;
 		return null;
 	}
@@ -315,9 +318,9 @@ public class ColonnineDAO {
 
 	//StazioniRicaricaDAO
 	
-	public List<StazioniRicarica> getListStazioni(Map <LatLng, StazioniRicarica> stationMap, Map<LatLng, City> cityMap) {
+	public List<StazioniRicarica> getListStazioni(Map <Integer, StazioniRicarica> stationMap, Map<String, City> cityMap, Double latcenter, Double longcenter, Double radius) {
 
-		String sql = "SELECT * FROM StazioniRicarica";
+		String sql = "SELECT * FROM StazioniRicarica ";
 		List<StazioniRicarica> stazioni = new ArrayList<>();
 
 		try {
@@ -326,14 +329,21 @@ public class ColonnineDAO {
 			ResultSet res = st.executeQuery();
 
 			while (res.next()) {
-				LatLng coords=new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude")));
-				if(stationMap.get(coords)==null) {
+				double lat=Double.parseDouble(res.getString("Latitude"));
+				double lon=Double.parseDouble(res.getString("Longitude"));
+
+				
+				if(LatLngTool.distance(new LatLng(lat, lon), new LatLng(latcenter, longcenter), LengthUnit.KILOMETER)<=radius){
+				if(stationMap.get(res.getInt("ID"))==null) {
 				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Street Address"), this.getCityByName(res.getString("City"), cityMap), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
-				stationMap.put(coords, s);
+				stationMap.put(s.getId(), s);
 				stazioni.add(s);
 				}
-				else
-					stazioni.add(stationMap.get(coords));
+				else {
+					stazioni.add(stationMap.get(res.getInt("ID")));
+				}
+				}
+				
 			}
 
 			conn.close();
@@ -344,6 +354,77 @@ public class ColonnineDAO {
 
 		return stazioni;
 	}
+	
+	public List<StazioniRicarica> getListStazioniSlow(Map <Integer, StazioniRicarica> stationMap, Map<String, City> cityMap, Double latcenter, Double longcenter, Double radius) {
+
+		String sql = "SELECT * FROM StazioniRicarica s WHERE s.`EV Level1 EVSE Num`!=0 OR s.`EV Level2 EVSE Num`!=0 ";
+		List<StazioniRicarica> stazioni = new ArrayList<>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+
+			while (res.next()) {
+				double lat=Double.parseDouble(res.getString("Latitude"));
+				double lon=Double.parseDouble(res.getString("Longitude"));
+
+				
+				if(LatLngTool.distance(new LatLng(lat, lon), new LatLng(latcenter, longcenter), LengthUnit.KILOMETER)<=radius){
+				if(stationMap.get(res.getInt("ID"))==null) {
+				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Street Address"), this.getCityByName(res.getString("City"), cityMap), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
+				stationMap.put(s.getId(), s);
+				stazioni.add(s);
+				}
+				else
+					stazioni.add(stationMap.get(res.getInt("ID")));
+				}
+				
+			}
+
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return stazioni;
+	}
+	
+	public List<StazioniRicarica> getListStazioniFast(Map <Integer, StazioniRicarica> stationMap, Map<String, City> cityMap, Double latcenter, Double longcenter, Double radius) {
+
+		String sql = "SELECT * FROM StazioniRicarica WHERE `EV DC Fast Count`!=0 ";
+		List<StazioniRicarica> stazioni = new ArrayList<>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet res = st.executeQuery();
+
+			while (res.next()) {
+				double lat=Double.parseDouble(res.getString("Latitude"));
+				double lon=Double.parseDouble(res.getString("Longitude"));
+
+				
+				if(LatLngTool.distance(new LatLng(lat, lon), new LatLng(latcenter, longcenter), LengthUnit.KILOMETER)<=radius){
+				if(stationMap.get(res.getInt("ID"))==null) {
+				StazioniRicarica s=new StazioniRicarica(res.getInt("ID"),res.getString("Station Name"), res.getString("Street Address"), this.getCityByName(res.getString("City"), cityMap), res.getInt("ZIP"), res.getInt("EV Level1 EVSE Num"), res.getInt("EV Level2 EVSE Num"), res.getInt("EV DC Fast Count"), new LatLng(Float.parseFloat(res.getString("Latitude")), Float.parseFloat(res.getString("Longitude"))));
+				stationMap.put(s.getId(), s);
+				stazioni.add(s);
+				}
+				else
+					stazioni.add(stationMap.get(res.getInt("ID")));
+				}
+			}
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return stazioni;
+	}
+	
 	
 	/*public List<StazioniRicarica> getStazioniRaggiungibili( StazioniRicarica partenza, ){
 		String sql = "SELECT * FROM StazioniRicarica WHERE Latitude!=? AND Longitude!=?";
@@ -370,31 +451,8 @@ public class ColonnineDAO {
 		return stazioni;
 	}*/
 	
-	public List<ArcoStazione> getAllEdges(String city, Map<LatLng, StazioniRicarica> stationMap){
-		String sql = "SELECT s1.Latitude AS LA1, s1.Longitude AS LO1,  s2.Latitude AS LA2, s2.Longitude AS LO2 FROM StazioniRicarica s1, StazioniRicarica s2 WHERE s1.Latitude!=s2.Latitude AND s1.Longitude!=s2.Longitude AND s1.City=? AND s1.City!=s2.CIty GROUP BY s1.Latitude, s1.Longitude, s2.Latitude, s2.Longitude";
-		List<ArcoStazione> archi = new ArrayList<>();
-
-		try {
-			Connection conn = ConnectDB.getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, city);
-			ResultSet res = st.executeQuery();
-
-			while (res.next()) {
-				LatLng coords1=new LatLng(Float.parseFloat(res.getString("LA1")), Float.parseFloat(res.getString("LO1")));
-				LatLng coords2=new LatLng(Float.parseFloat(res.getString("LA2")), Float.parseFloat(res.getString("LO2")));
-				ArcoStazione a=new ArcoStazione(stationMap.get(coords1),stationMap.get(coords2));
-				archi.add(a);
-			}
-
-			conn.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-		return archi;
-	}
+	
+	
 	
 	
 	

@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +15,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -29,6 +35,7 @@ public class PannelloSceltaAutoController {
 	private Stage primaryStage;
 	private Stage secondaryStage;
 	private Stage itself;
+	private ActionEvent sceltaAuto;
 	
 
     @FXML
@@ -88,14 +95,55 @@ public class PannelloSceltaAutoController {
     @FXML
     private Button btnResetAuto;
 
+    //@FXML
+   // private TextArea txtResult;
     @FXML
-    private TextArea txtResult;
+    private TableView<AutoElettriche> tableResult;
+
+    @FXML
+    private TableColumn<AutoElettriche, String> columnMarca;
+
+    @FXML
+    private TableColumn<AutoElettriche, String> columnModello;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnVendita;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnNoleggio;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnAutonomia;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnEfficienza;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnVelRicarica;
+
+    @FXML
+    private TableColumn<AutoElettriche, String> columnRicaricaRapida;
+
+    @FXML
+    private TableColumn<AutoElettriche, String> columnTrazione;
+
+    @FXML
+    private TableColumn<AutoElettriche, String> columnSegmento;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnNumPosti;
+
+    @FXML
+    private TableColumn<AutoElettriche, Float> columnPrestazioni;
+
+    @FXML
+    private TableColumn<AutoElettriche, Integer> columnVelMax;
 
    
 
     @FXML
     void checkSelectedMarca(MouseEvent event) {
-		this.tendinaMarca.getItems().addAll(this.model.getMarche());
+		//this.tendinaMarca.getItems().addAll(this.model.getMarche());
 
     	if(!this.tendinaMarca.getSelectionModel().isEmpty()) {
     		this.tendinaModello.getItems().clear();
@@ -148,15 +196,22 @@ public class PannelloSceltaAutoController {
 
     @FXML
     void doResetAuto(ActionEvent event) {
-    	txtResult.clear();
+    	//txtResult.clear();
+    	for ( int i = 0; i<tableResult.getItems().size(); i++) {
+    	    tableResult.getItems().clear();
+    	}
+		this.tableResult.getItems().add(null);
+
     	this.checkCompro.selectedProperty().set(false);
     	this.checkCompro.setDisable(false);
     	this.checkNoleggio.selectedProperty().set(false);
     	this.checkNoleggio.setDisable(false);
-    	this.tendinaModello.setValue(null);
-    	this.tendinaModello.setDisable(false);
     	this.tendinaMarca.setValue(null);
 		this.tendinaMarca.setDisable(false);
+		this.tendinaModello.getItems().clear();
+		this.tendinaModello.getItems().addAll(model.getModelli());
+    	this.tendinaModello.setValue(null);
+    	this.tendinaModello.setDisable(false);
 		this.tendinaNumPosti.setValue(null);
 		this.tendinaNumPosti.setDisable(false);
 		this.tendinaSegmento.setValue(null);
@@ -185,11 +240,37 @@ public class PannelloSceltaAutoController {
     
     
     @FXML
-    void doTrovaRisultati(ActionEvent event) {
-    	txtResult.clear();
+    List<AutoElettriche> doTrovaRisultati(ActionEvent event) {
+    	this.sceltaAuto=event;
+    	for ( int i = 0; i<tableResult.getItems().size(); i++) {
+    	    tableResult.getItems().clear();
+    	}
+
+    	
+    	
     	if(this.tendinaModello.getValue()!=null) {
-    		this.txtResult.appendText("Auto scelta: "+this.model.getAutoByModello(tendinaModello.getValue()).toString()+"\n");;
-    		return;
+    		//this.txtResult.appendText("Auto scelta: "+this.model.getAutoByModello(tendinaModello.getValue()).toString()+"\n");
+    		List<AutoElettriche> scelta=new ArrayList<>();
+
+    		
+    		scelta.add(this.model.getAutoByModello(tendinaModello.getValue()));
+    		this.tableResult.getItems().addAll(this.model.getAutoByModello(tendinaModello.getValue()));
+
+    		this.columnMarca.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("marca"));
+        	this.columnModello.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("modello"));
+        	this.columnVendita.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("prezzoVendita"));
+        	this.columnNoleggio.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("prezzoNoleggio"));
+        	this.columnAutonomia.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("autonomia"));
+        	this.columnEfficienza.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("efficienza"));
+        	this.columnVelRicarica.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("velocitaRicarica"));
+        	this.columnRicaricaRapida.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("ricaricaRapida"));
+        	this.columnTrazione.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("trazioneIntegrale"));
+        	this.columnSegmento.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("segmento"));
+        	this.columnNumPosti.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("numeroPosti"));
+        	this.columnPrestazioni.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Float>("prestazioni"));
+        	this.columnVelMax.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("velocitaMax"));
+
+    		return scelta;
     	}
     	
     	List<AutoElettriche> desiderate=new ArrayList<>();
@@ -282,17 +363,33 @@ public class PannelloSceltaAutoController {
     		//Controllo che trovato abbia lo stesso valore di parametri
     		if(trovato==parametri)
     			desiderate.add(a);
+    		
     			
     	}
     	
     	
-    	if(desiderate.size()==0)
-    		txtResult.appendText("Siamo dispiaciuti, nessuna auto soddisfa le sue preferenze\n");
-    	else
-    		for(AutoElettriche a:desiderate)
-    			txtResult.appendText(a.toString()+"\n");
     	
+    	if(desiderate.size()!=0)
+    		/*for(AutoElettriche a:desiderate)
+    			txtResult.appendText(a.toString()+"\n");*/
+    		this.tableResult.getItems().addAll(desiderate);
     	
+    	this.columnMarca.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("marca"));
+    	this.columnModello.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("modello"));
+    	this.columnVendita.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("prezzoVendita"));
+    	this.columnNoleggio.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("prezzoNoleggio"));
+    	this.columnAutonomia.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("autonomia"));
+    	this.columnEfficienza.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("efficienza"));
+    	this.columnVelRicarica.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("velocitaRicarica"));
+    	this.columnRicaricaRapida.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("ricaricaRapida"));
+    	this.columnTrazione.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("trazioneIntegrale"));
+    	this.columnSegmento.setCellValueFactory(new PropertyValueFactory<AutoElettriche, String>("segmento"));
+    	this.columnNumPosti.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("numeroPosti"));
+    	this.columnPrestazioni.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Float>("prestazioni"));
+    	this.columnVelMax.setCellValueFactory(new PropertyValueFactory<AutoElettriche, Integer>("velocitaMax"));
+
+    	
+    	return desiderate;
     }
     
     @FXML
@@ -311,6 +408,7 @@ public class PannelloSceltaAutoController {
     		
     		primaryStage.setScene(scene);
     		primaryStage.show();
+    		primaryStage.setResizable(false);
     		controller.setItself(primaryStage);
     		itself.close();
     	} catch(Exception e) {
@@ -337,7 +435,9 @@ public class PannelloSceltaAutoController {
     		
     		secondaryStage.setScene(scene);
     		secondaryStage.show();
+    		secondaryStage.setResizable(false);
     		controller.setItself(secondaryStage);
+    		controller.setModelloAuto(this.doTrovaRisultati(sceltaAuto));
     		itself.close();
     	} catch(Exception e) {
     		e.printStackTrace();
@@ -365,7 +465,21 @@ public class PannelloSceltaAutoController {
         assert sliderPrestazioni != null : "fx:id=\"sliderPrestazioni\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert btnRisultatiAuto != null : "fx:id=\"btnRisultatiAuto\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
         assert btnResetAuto != null : "fx:id=\"btnResetAuto\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
-        assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        //assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert tableResult != null : "fx:id=\"tableResult\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnMarca != null : "fx:id=\"columnMarca\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnModello != null : "fx:id=\"columnModello\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnVendita != null : "fx:id=\"columnVendita\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnNoleggio != null : "fx:id=\"columnNoleggio\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnAutonomia != null : "fx:id=\"columnAutonomia\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnEfficienza != null : "fx:id=\"columnEfficienza\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnVelRicarica != null : "fx:id=\"columnVelRicarica\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnRicaricaRapida != null : "fx:id=\"columnRicaricaRapida\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnTrazione != null : "fx:id=\"columnTrazione\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnSegmento != null : "fx:id=\"columnSegmento\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnNumPosti != null : "fx:id=\"columnNumPosti\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnPrestazioni != null : "fx:id=\"columnPrestazioni\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
+        assert columnVelMax != null : "fx:id=\"columnVelMax\" was not injected: check your FXML file 'PannelloSceltaAuto.fxml'.";
 
     }
 
@@ -376,10 +490,8 @@ public class PannelloSceltaAutoController {
 		this.tendinaNumPosti.getItems().addAll(this.model.getNumPosti());
 		this.tendinaSegmento.getItems().addAll(this.model.getSegmenti());
 		this.auto=this.model.getAllAuto();
-		//WebEngine engine=this.webView.getEngine();
-		//engine.load("https://www.openstreetmap.org/#map=5/32.454/-113.687&layers=G");
-		//engine.load("file:/Users/alebaldus/Desktop/Politecnico/Tecniche%20di%20Programmazione/Eclipse/Tesi/html/WebViewCalifornia.html");
-
+		this.tableResult.getItems().add(null);
+		
 	}
 
 	public void setItself(Stage itself) {

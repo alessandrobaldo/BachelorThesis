@@ -2,11 +2,11 @@ package tesi.model;
 
 public class ArcoStazione {
 
-	private StazioniRicarica s1;
-	private StazioniRicarica s2;
-	private float distance;
+	private Vertex s1;
+	private Vertex s2;
+	private double distance;
 	
-	public ArcoStazione(StazioniRicarica s1, StazioniRicarica s2, float distance) {
+	public ArcoStazione(Vertex s1, Vertex s2, double distance) {
 		super();
 		this.s1 = s1;
 		this.s2 = s2;
@@ -15,7 +15,7 @@ public class ArcoStazione {
 	
 	
 
-	public ArcoStazione(StazioniRicarica s1, StazioniRicarica s2) {
+	public ArcoStazione(Vertex s1, Vertex s2) {
 		super();
 		this.s1 = s1;
 		this.s2 = s2;
@@ -23,27 +23,27 @@ public class ArcoStazione {
 
 
 
-	public StazioniRicarica getS1() {
+	public Vertex getS1() {
 		return s1;
 	}
 
-	public void setS1(StazioniRicarica s1) {
+	public void setS1(Vertex s1) {
 		this.s1 = s1;
 	}
 
-	public StazioniRicarica getS2() {
+	public Vertex getS2() {
 		return s2;
 	}
 
-	public void setS2(StazioniRicarica s2) {
+	public void setS2(Vertex s2) {
 		this.s2 = s2;
 	}
 
-	public float getDistance() {
+	public double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(float distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 

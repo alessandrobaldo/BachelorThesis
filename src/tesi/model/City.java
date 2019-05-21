@@ -2,7 +2,9 @@ package tesi.model;
 
 import com.javadocmd.simplelatlng.LatLng;
 
-public class City {
+public class City extends Vertex{
+
+	
 
 	private String nome;
 	private LatLng coords;
@@ -49,11 +51,14 @@ public class City {
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!nome.toLowerCase().trim().equals(other.nome.toLowerCase().trim()))
 			return false;
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return String.format("%s\n", nome);
+	}
 	
 }
