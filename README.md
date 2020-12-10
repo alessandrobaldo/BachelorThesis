@@ -7,7 +7,9 @@ Produzione
 
 Corso di Laurea in Ingegneria Gestionale Classe L-8 Ingegneria dell’Informazione
 
-![](ElaboratoProvaFinaleBaldoAlessandro.001.png)
+![ElaboratoProvaFinaleBaldoAlessandro 001](https://user-images.githubusercontent.com/48285797/101767464-88fa6d80-3ae4-11eb-8492-bc3c48386007.png)
+
+
 
 **Prova Finale** 
 
@@ -17,20 +19,11 @@ Corso di Laurea in Ingegneria Gestionale Classe L-8 Ingegneria dell’Informazio
 
 **Relatore    Candidato**  *Prof. Fulvio Corno  Baldo Alessandro* 
 
-*(s236651)* 
+
 
 Anno Accademico 2018/2019
 
-Indice  
-
-Proposta di progetto ......................................................................................................................................... 3  Descrizione dettagliata del problema ............................................................................................................. 5  Descrizione del data-set utilizzato per l’analisi............................................................................................. 7  Descrizione ad alto livello delle strutture dati e degli algoritmi utilizzati................................................ 9  Diagramma delle classi delle parti principali dell’applicazione…….........................................................12  Alcune videate dell’applicazione ....................................................................................................................13  Tabelle con risultati sperimentali ottenuti .................................................................................................... 15  
-
-Valutazione risultati ottenuti e conclusioni ................................................................................................. 17 
-
-Proposta di progetto
-
-**Studente proponente** Baldo Alessandro (s236651) 
-
+**Studente proponente** Baldo Alessandro 
 **Titolo della proposta** 
 
 EV Manager – Tool per la Gestione della Mobilità Elettrica
@@ -83,7 +76,8 @@ Per lasciare maggiore dinamicità e libertà all’utente, come è possibile avv
 
 **Descrizione del data-set utilizzato per l’analisi.** 
 
-I dati di tale software nascono a seguito di una ricerca accurata, che fosse quanto più aggiornata possibile. I data-set presenti sono tre (lista degli autoveicoli elettrici, elenco delle città e province dello stato della California e mappa delle stazioni di ricarica presenti sul territorio della regione), di cui uno, quello degli autoveicoli elettrici, costruito da me facendo riferimento alle informazioni riportate dalle maggiori piattaforme web del settore, in particolare ev- ![](ElaboratoProvaFinaleBaldoAlessandro.002.png)database.org/ev-databse.uk .  
+I dati di tale software nascono a seguito di una ricerca accurata, che fosse quanto più aggiornata possibile. I data-set presenti sono tre (lista degli autoveicoli elettrici, elenco delle città e province dello stato della California e mappa delle stazioni di ricarica presenti sul territorio della regione), di cui uno, quello degli autoveicoli elettrici, costruito da me facendo riferimento alle informazioni riportate dalle maggiori piattaforme web del settore, in particolare ev- ![ElaboratoProvaFinaleBaldoAlessandro 002](https://user-images.githubusercontent.com/48285797/101767469-8a2b9a80-3ae4-11eb-8310-89f8b3e93f80.png)
+database.org/ev-databse.uk .  
 
 Delle tre collezioni, sicuramente, il database più corposo è quello che riguarda la totalità delle stazioni di ricarica. I dati superano le 5000 occorrenze e sono 
 
@@ -95,7 +89,8 @@ Il data-set sulle città e province californiane, invece, è stato reperito da h
 
 Infine, la tabella sui modelli di autoveicoli, riporta, al giorno d’oggi, 66 modelli differenti di 25 case automobilistiche distinte. Per ciascun modello, oltre al riferimento alla casa e al nome, sono riportate informazioni sull’autonomia, efficienza e velocità di ricarica della batteria, supporto alla ricarica rapida e presenza della trazione integrale, prestazioni da 0 a 100 km/h e velocità massima raggiungibile e infine riguardo a un eventuale prezzo di vendita e noleggio (per i modelli che devono ancora debuttare, sono valori stimati). 
 
-![](ElaboratoProvaFinaleBaldoAlessandro.003.png)
+![ElaboratoProvaFinaleBaldoAlessandro 003](https://user-images.githubusercontent.com/48285797/101767470-8a2b9a80-3ae4-11eb-8c13-98d477ab69a2.png)
+
 
 **Descrizione ad alto livello delle strutture dati e algoritmi utilizzati** 
 
@@ -139,19 +134,21 @@ Di seguito si riportano alcuni passi fondamentali del codice.
 
 **public void creaGrafo**: metodo di creazione del grafo, con all’interno tutte le stazioni di ricarica presenti a database. Per ottimizzare i tempi si è optato per un approccio basato sul pattern ORM e DAO, in modo da abbattere la percentuale di calcolo computazionale spesa lato Database.
 
-![](ElaboratoProvaFinaleBaldoAlessandro.004.png)
+![ElaboratoProvaFinaleBaldoAlessandro 004](https://user-images.githubusercontent.com/48285797/101767473-8ac43100-3ae4-11eb-8671-63832844e984.png)
 
 **public void creaGrafoSlow** e **public void creaGrafoFast**: le due varianti del metodo sovradescritto, che permettono la creazione di due grafi meno densi. Il primo trova applicazione per tutti quegli autoveicoli che non supportano la ricarica rapida e che, di conseguenza, non avrebbero interesse nell’aver visibilità di tutte quelle stazioni di ricarica al cui interno siano presenti solo colonnine a ricarica rapida. Il secondo viene richiamato nel caso in cui l’utente decidesse di ottenere un percorso che comprenda solo quelle stazioni che possano garantire soste più brevi grazie a tecnologie di ricarica più moderne. 
 
-![](ElaboratoProvaFinaleBaldoAlessandro.005.png)
+![ElaboratoProvaFinaleBaldoAlessandro 005](https://user-images.githubusercontent.com/48285797/101767475-8b5cc780-3ae4-11eb-826a-2e2b056621d8.png)
+![ElaboratoProvaFinaleBaldoAlessandro 006](https://user-images.githubusercontent.com/48285797/101767476-8bf55e00-3ae4-11eb-94dc-bf5b89a437fb.png)
 
-![](ElaboratoProvaFinaleBaldoAlessandro.006.png)**public List<Vertex> verticiRaggiungibili, spanningTreeFinoA, calcoloCamminoMinimo**: rappresentano i tre algoritmi che operano sul grafo creato e il cui scopo è quello di fornire informazioni circa le stazioni di ricarica raggiungibili (i primi due, cooperano) e il percorso ottimo, sfruttando concetti di Teoria sui Grafi quali: Spanning Tree (Albero Ricoprente), Cammino Minimo (attraverso l’applicazione dell’Algoritmo di Dijkstra).
+**public List<Vertex> verticiRaggiungibili, spanningTreeFinoA, calcoloCamminoMinimo**: rappresentano i tre algoritmi che operano sul grafo creato e il cui scopo è quello di fornire informazioni circa le stazioni di ricarica raggiungibili (i primi due, cooperano) e il percorso ottimo, sfruttando concetti di Teoria sui Grafi quali: Spanning Tree (Albero Ricoprente), Cammino Minimo (attraverso l’applicazione dell’Algoritmo di Dijkstra).
 
-![](ElaboratoProvaFinaleBaldoAlessandro.007.png)
+![ElaboratoProvaFinaleBaldoAlessandro 007](https://user-images.githubusercontent.com/48285797/101767480-8c8df480-3ae4-11eb-92c1-34dd36086c55.png)
 
 **Diagramma delle classi delle parti principali dell’applicazione**
 
-![](ElaboratoProvaFinaleBaldoAlessandro.008.png)
+![ElaboratoProvaFinaleBaldoAlessandro 008](https://user-images.githubusercontent.com/48285797/101767481-8c8df480-3ae4-11eb-8caa-a200f91b3075.png)
+
 
 **Alcune videate dell’applicazione realizzata e link al video** 
 
@@ -159,23 +156,28 @@ Di seguito si riportano alcuni passi fondamentali del codice.
 
 **Pannello iniziale all’avvio dell’applicazione**
 
-![](ElaboratoProvaFinaleBaldoAlessandro.009.png)
+![ElaboratoProvaFinaleBaldoAlessandro 009](https://user-images.githubusercontent.com/48285797/101767483-8d268b00-3ae4-11eb-9aad-4a00ea7a4ae5.png)
 
 **Pannello per la scelta dell’autoveicolo**
 
-![](ElaboratoProvaFinaleBaldoAlessandro.010.png)
+![ElaboratoProvaFinaleBaldoAlessandro 010](https://user-images.githubusercontent.com/48285797/101767485-8d268b00-3ae4-11eb-8ed7-ff81afea2169.png)
 
 **Pannello per il calcolo del percorso**
 
-![](ElaboratoProvaFinaleBaldoAlessandro.011.png)
+![ElaboratoProvaFinaleBaldoAlessandro 011](https://user-images.githubusercontent.com/48285797/101767488-8dbf2180-3ae4-11eb-9a0a-47b688f25cf2.png)
+
+
 
 **Tabelle con risultati sperimentali ottenuti**
 
 L’esempio mostrato riguarda la scelta tra gli autoveicoli di un noto marchio tedesco. Come ulteriori filtri si è voluto impostare il segmento, per la scelta di un Suv, la presenza della trazione integrale e della ricarica rapida e delle soglie accettabili come prezzo di vendita, autonomia della batteria, picchi di velocità e prestazioni.
 
-![](ElaboratoProvaFinaleBaldoAlessandro.012.png)L’esempio prosegue con una dimostrazione di un calcolo del miglior itinerario tra San Francisco e Los Angeles. L’auto presa in considerazione è la terza voce dei risultati della schermata precedente, in quanto miglior compromesso tra autonomia e prezzo.
+![ElaboratoProvaFinaleBaldoAlessandro 012](https://user-images.githubusercontent.com/48285797/101767492-8dbf2180-3ae4-11eb-9067-fe2c4d2754b6.png)
 
-![](ElaboratoProvaFinaleBaldoAlessandro.013.png)
+L’esempio prosegue con una dimostrazione di un calcolo del miglior itinerario tra San Francisco e Los Angeles. L’auto presa in considerazione è la terza voce dei risultati della schermata precedente, in quanto miglior compromesso tra autonomia e prezzo.
+
+![ElaboratoProvaFinaleBaldoAlessandro 013](https://user-images.githubusercontent.com/48285797/101767493-8dbf2180-3ae4-11eb-8127-fdfd7263b1a6.png)
+
 
 **Valutazioni sui risultati ottenuti e conclusioni.**
 
@@ -189,7 +191,7 @@ Un modo per rendere ancora più snella, lato client, l’applicazione, sarebbe q
 
 **Link al video YouTube:** https://youtu.be/Xsyuer7aVWo 
 
-![](ElaboratoProvaFinaleBaldoAlessandro.014.png)
+![ElaboratoProvaFinaleBaldoAlessandro 014](https://user-images.githubusercontent.com/48285797/101767494-8e57b800-3ae4-11eb-81f3-0bfee8986e7e.png)
 
 Quest’opera è distribuita con licenza Creative Commons Attribuzione - Non commerciale - Condividi allo stesso modo 4.0 Internazionale.  
 
